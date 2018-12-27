@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_marginBottom="@dimen/margin_med"
+    app:cardBackgroundColor="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="4dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/backdrop"
+            android:scaleType="center"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <ImageView
+            android:layout_below="@id/backdrop"
+            android:id="@+id/poster"
+            android:layout_marginTop="@dimen/margin_bttop"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_bttop"
+            android:layout_width="@dimen/margin_high"
+            android:layout_height="70dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="@dimen/margin_bttop"
+            android:layout_below="@+id/backdrop"
+            android:layout_toEndOf="@+id/poster"
+            android:textSize="@dimen/text_mls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginEnd="@dimen/margin_smed"
+            android:layout_marginBottom="@dimen/margin_bttop"
+            android:textSize="@dimen/text_sm"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="@dimen/margin_smed"
+            android:layout_toEndOf="@+id/poster"
+            android:layout_below="@+id/title"
+            android:id="@+id/overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

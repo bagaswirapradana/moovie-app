@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Moovie</string>
+    <string name="title_home">Beranda</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_more">Lainnya</string>
+    <string name="hint_see_more">See More</string>
+    <string name="title_popular_movie">Popular Movies</string>
+    <string name="title_top_rated">Top Rated Movies</string>
+    <string name="title_upcoming">Upcoming Movies</string>
+    <string name="title_similar">Similar Movies</string>
+</resources>
