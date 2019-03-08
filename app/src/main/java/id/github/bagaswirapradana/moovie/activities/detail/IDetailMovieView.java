@@ -11,4 +11,5 @@ public interface IDetailMovieView {
     void setDetailData(DetailMovie detailMovie);
     void setSimilarMovieData(SimilarMovie similarMovie);
     void setTrailerMovieData(Videos videos);
+    void extractUrl(String key);
 }

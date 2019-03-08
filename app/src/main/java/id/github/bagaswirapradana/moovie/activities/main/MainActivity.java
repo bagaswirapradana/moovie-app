@@ -26,10 +26,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 
     @ViewById(R.id.toolbar)
     protected Toolbar toolbar;
-
     @ViewById(R.id.navigation)
     protected BottomNavigationView bottomNavigationView;
-
     @ViewById(R.id.tv_judul)
     protected TextView tvJudul;
 

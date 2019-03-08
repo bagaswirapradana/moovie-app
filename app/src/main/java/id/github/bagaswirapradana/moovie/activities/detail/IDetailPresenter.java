@@ -5,4 +5,5 @@ public interface IDetailPresenter{
     void getSimilarMovieData(String id);
     void onDestroy();
     void getTrailerMovie(String id);
+    void setIDetailMovieView(IDetailMovieView iDetailMovieView);
 }

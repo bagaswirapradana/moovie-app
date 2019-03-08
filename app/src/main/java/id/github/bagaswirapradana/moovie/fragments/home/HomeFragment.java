@@ -1,35 +1,30 @@
 package id.github.bagaswirapradana.moovie.fragments.home;
 
+import android.util.Log;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import androidx.recyclerview.widget.SnapHelper;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
-
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-
 import id.github.bagaswirapradana.moovie.R;
+import id.github.bagaswirapradana.moovie.adapter.coming.UpComingMoviesAdapter;
 import id.github.bagaswirapradana.moovie.adapter.popular.PopularMoviesAdapter;
 import id.github.bagaswirapradana.moovie.adapter.rated.TopRatedMoviesAdapter;
-import id.github.bagaswirapradana.moovie.adapter.coming.UpComingMoviesAdapter;
 import id.github.bagaswirapradana.moovie.behavior.SnappingRecyclerView;
 import id.github.bagaswirapradana.moovie.behavior.StartSnapHelper;
 import id.github.bagaswirapradana.moovie.model.PopularMovie;
 import id.github.bagaswirapradana.moovie.model.TopRatedMovie;
 import id.github.bagaswirapradana.moovie.model.UpComingMovie;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 @EFragment(R.layout.fragment_home)
 public class HomeFragment extends Fragment implements IHomeView{
 
     private static final String TAG = "HomeFragment";
-    private HomePresenter homePresenter;
 
     @ViewById(R.id.popularMovieList)
     protected SnappingRecyclerView recyclerViewPopular;
@@ -44,10 +39,12 @@ public class HomeFragment extends Fragment implements IHomeView{
     protected TopRatedMoviesAdapter ratedMoviesAdapter;
     @Bean
     protected UpComingMoviesAdapter comingMoviesAdapter;
+    @Bean
+    protected HomePresenter homePresenter;
 
     @AfterViews
     protected void initialize(){
-        homePresenter = new HomePresenter(this);
+        homePresenter.setIHomeView(this);
         homePresenter.getAllData();
         initViews();
         showShimmer();
@@ -109,11 +106,10 @@ public class HomeFragment extends Fragment implements IHomeView{
 
     @Override
     public void initViews() {
-        //Popular Movies Recyclerview
         SnapHelper startSnapHelper = new StartSnapHelper();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         linearLayoutManager.scrollToPosition(0);
-
+        //Popular Movies Recyclerview
         recyclerViewPopular.setLayoutManager(linearLayoutManager);
         recyclerViewPopular.setHasFixedSize(true);
         recyclerViewPopular.setNestedScrollingEnabled(false);

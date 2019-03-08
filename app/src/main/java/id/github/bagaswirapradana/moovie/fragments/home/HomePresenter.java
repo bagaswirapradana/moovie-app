@@ -12,20 +12,21 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import org.androidannotations.annotations.EBean;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
+@EBean
 public class HomePresenter implements IHomePresenter{
 
     private IHomeView iHomeView;
 
     private static final String TAG = "HomePresenter";
-
     private static final String API_KEY = "ef037f53cdf93d69c631efff89016d3b";
-
     private static final String LANGUAGE = "id";
 
-    HomePresenter(IHomeView iHomeView) {
+    @Override
+    public void setIHomeView(IHomeView iHomeView) {
         this.iHomeView = iHomeView;
     }
 

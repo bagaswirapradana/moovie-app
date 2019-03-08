@@ -1,4 +1,4 @@
 package id.github.bagaswirapradana.moovie.fragments.more;
 
-public class MorePresenter {
+public class MorePresenter implements IMorePresenter{
 }

@@ -7,6 +7,6 @@ import org.androidannotations.annotations.EFragment;
 import id.github.bagaswirapradana.moovie.R;
 
 @EFragment(R.layout.fragment_more)
-public class MoreFragment extends Fragment {
+public class MoreFragment extends Fragment implements IMoreView {
 
 }

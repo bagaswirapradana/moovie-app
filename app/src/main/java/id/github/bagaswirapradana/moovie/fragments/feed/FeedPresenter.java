@@ -9,18 +9,21 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
+@EBean
 public class FeedPresenter implements IFeedPresenter{
 
     private static final String API_KEY = "ef037f53cdf93d69c631efff89016d3b";
-
     private static final String TAG = "FeedPresenter";
 
     private IFeedView iFeedView;
 
-    FeedPresenter(IFeedView iFeedView) {
+    @Override
+    public void setIFeedView(IFeedView iFeedView) {
         this.iFeedView = iFeedView;
     }
 

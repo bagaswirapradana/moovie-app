@@ -11,9 +11,11 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import org.androidannotations.annotations.EBean;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
+@EBean
 public class DetailMoviePresenter implements IDetailPresenter{
 
     private IDetailMovieView iDetailMovieView;
@@ -22,10 +24,6 @@ public class DetailMoviePresenter implements IDetailPresenter{
     private static final String API_KEY = "ef037f53cdf93d69c631efff89016d3b";
     private static final String LANGUAGE = "id";
     private static final String APPEND_TO_RESPONSE = "videos";
-
-    DetailMoviePresenter(IDetailMovieView iDetailMovieView) {
-        this.iDetailMovieView = iDetailMovieView;
-    }
 
     @Override
     public void getDetailMovieData(String id) {
@@ -79,6 +77,11 @@ public class DetailMoviePresenter implements IDetailPresenter{
     public void getTrailerMovie(String id) {
         CompositeDisposable compositeDisposable = new CompositeDisposable();
         compositeDisposable.add(getObservableTrailerMovie(id).subscribeWith(getObserverTrailerMovie()));
+    }
+
+    @Override
+    public void setIDetailMovieView(IDetailMovieView iDetailMovieView) {
+        this.iDetailMovieView = iDetailMovieView;
     }
 
     private DisposableObserver<Videos> getObserverTrailerMovie() {

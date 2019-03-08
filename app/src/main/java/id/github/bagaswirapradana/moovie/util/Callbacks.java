@@ -6,7 +6,7 @@ package id.github.bagaswirapradana.moovie.util;
 public interface Callbacks {
     void callbackObserver(Object obj);
 
-    public interface playerCallBack {
+    interface playerCallBack {
         void onItemClickOnItem(Integer albumId);
 
         void onPlayingEnd();

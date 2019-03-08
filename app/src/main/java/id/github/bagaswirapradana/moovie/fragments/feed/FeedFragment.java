@@ -11,7 +11,6 @@ import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -19,14 +18,13 @@ import id.github.bagaswirapradana.moovie.R;
 import id.github.bagaswirapradana.moovie.adapter.feed.FeedAdapter;
 import id.github.bagaswirapradana.moovie.model.Feed;
 
-@EBean
 @EFragment(R.layout.fragment_feed)
 public class FeedFragment extends Fragment implements IFeedView {
 
     private static final String TAG = "FeedFragment";
 
-    private FeedPresenter feedPresenter;
-
+    @Bean
+    protected FeedPresenter feedPresenter;
     @Bean
     protected FeedAdapter feedAdapter;
 
@@ -35,7 +33,7 @@ public class FeedFragment extends Fragment implements IFeedView {
 
     @AfterViews
     protected void initialize(){
-        feedPresenter = new FeedPresenter(this);
+        feedPresenter.setIFeedView(this);
         feedPresenter.getFeedData();
         initViews();
         showShimmer();

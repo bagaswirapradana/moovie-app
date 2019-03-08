@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import androidx.appcompat.app.AppCompatActivity;
 
 import id.github.bagaswirapradana.moovie.util.ExoPlayerManager;
+import java.util.ArrayList;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -40,11 +41,8 @@ import id.github.bagaswirapradana.moovie.model.Videos;
 @EActivity(R.layout.activity_detail_movie)
 public class DetailMovieActivity extends AppCompatActivity implements IDetailMovieView{
 
-    private String BASE_URL = "https://www.youtube.com";
-    private String mYoutubeLink = BASE_URL + "/watch?v=";
-
-    private DetailMoviePresenter detailMoviePresenter;
-
+    private final static String BASE_URL = "https://www.youtube.com";
+    private final static String mYoutubeLink = BASE_URL + "/watch?v=";
     private final static String TAG = "DetailMovieActivity";
 
     @Extra("id")
@@ -75,13 +73,16 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     protected SimilarMoviesAdapter similarMoviesAdapter;
     @Bean
     protected TrailerAdapter trailerAdapter;
+    @Bean
+    protected DetailMoviePresenter detailMoviePresenter;
 
     @Override
     protected void onStart() {
         super.onStart();
     }
 
-    private void extractUrl(String key) {
+    @Override
+    public void extractUrl(String key) {
         @SuppressLint("StaticFieldLeak") YouTubeExtractor mYouTubeExtractor =  new YouTubeExtractor(this) {
             @Override
             protected void onExtractionComplete(SparseArray<YtFile> sparseArray,
@@ -96,8 +97,7 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
 
     @AfterViews
     protected void initialize(){
-        detailMoviePresenter = new DetailMoviePresenter(this);
-
+        detailMoviePresenter.setIDetailMovieView(this);
         initViews();
 
         if (idMovie != null){
@@ -147,10 +147,13 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
 
     @Override
     public void setDetailData(DetailMovie detailMovie) {
-        if (detailMovie!=null) {
+        if (detailMovie != null) {
             String year = detailMovie.getReleaseDate();
             String runTime = String.valueOf(detailMovie.getRuntime()) + " Minutes";
-            Picasso.with(this).load("https://image.tmdb.org/t/p/w1280"+detailMovie.getBackdropPath()).into(imageView);
+            Picasso.with(this)
+                    .load("https://image.tmdb.org/t/p/w1280"+detailMovie.
+                            getBackdropPath())
+                    .into(imageView);
             titleMovie.setText(detailMovie.getOriginalTitle());
             statusMovie.setText(detailMovie.getStatus());
             overview.setText(detailMovie.getOverview());
@@ -181,7 +184,7 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
 
     @Override
     public void setTrailerMovieData(Videos videos) {
-        if (videos != null){
+        if (videos != null && videos.getResults().size() >= 1){
             trailerAdapter.bindTrailerMovies(videos.getResults());
             trailerAdapter.setIDetailMovie(this);
             trailerAdapter.notifyDataSetChanged();
@@ -192,9 +195,9 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     }
 
     @Override
-    public void setTrailerPlayer(String key) {
+    public void setTrailerPlayer(String url) {
         simpleExoPlayer.setPlayer(ExoPlayerManager.getSharedInstance(this).getPlayerView().getPlayer());
-        ExoPlayerManager.getSharedInstance(this).playStream(key);
+        ExoPlayerManager.getSharedInstance(this).playStream(url);
     }
 
     @Click(R.id.back)
