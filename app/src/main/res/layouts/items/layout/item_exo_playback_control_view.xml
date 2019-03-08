@@ -60,7 +60,6 @@
         android:id="@id/exo_position"
         android:layout_width="45dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:gravity="center"
         android:includeFontPadding="false"
         android:letterSpacing="-0.02"
@@ -69,16 +68,31 @@
         tools:text="23:09"
         tools:targetApi="lollipop"/>
 
-      <com.google.android.exoplayer2.ui.DefaultTimeBar
-        android:id="@id/exo_progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:bar_height="8dp"
-        app:buffered_color="#4Dd8d8d8"
-        app:played_color="@android:color/holo_red_dark"
-        app:scrubber_color="@android:color/holo_red_dark"
-        app:unplayed_color="#4Dd8d8d8" />
+      <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.exoplayer2.ui.DefaultTimeBar
+          android:id="@id/exo_progress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="8dp"
+          android:layout_toStartOf="@id/exo_fullscreen"
+          app:bar_height="8dp"
+          app:buffered_color="#4Dd8d8d8"
+          app:played_color="@android:color/holo_red_dark"
+          app:scrubber_color="@android:color/holo_red_dark"
+          app:unplayed_color="#4Dd8d8d8" />
+
+        <ImageButton
+          android:id="@+id/exo_fullscreen"
+          android:layout_gravity="center_vertical"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:background="@android:color/transparent"
+          android:src="@drawable/ic_fullscreen_24dp"/>
+      </RelativeLayout>
 
     </LinearLayout>
 

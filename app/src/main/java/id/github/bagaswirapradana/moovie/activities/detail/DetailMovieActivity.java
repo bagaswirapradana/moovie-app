@@ -1,15 +1,22 @@
 package id.github.bagaswirapradana.moovie.activities.detail;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import at.huber.youtubeExtractor.VideoMeta;
 import at.huber.youtubeExtractor.YouTubeExtractor;
 import at.huber.youtubeExtractor.YtFile;
+import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.squareup.picasso.Picasso;
 
@@ -45,6 +52,9 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     private final static String mYoutubeLink = BASE_URL + "/watch?v=";
     private final static String TAG = "DetailMovieActivity";
 
+    private boolean mExoPlayerFullscreen = false;
+    private Dialog mFullScreenDialog;
+
     @Extra("id")
     protected String idMovie;
 
@@ -68,6 +78,8 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     protected TextView genreMovie;
     @ViewById(R.id.exoplayer)
     protected PlayerView simpleExoPlayer;
+    @ViewById(R.id.exo_fullscreen)
+    protected ImageButton mFullScreenButton;
 
     @Bean
     protected SimilarMoviesAdapter similarMoviesAdapter;
@@ -203,5 +215,46 @@ public class DetailMovieActivity extends AppCompatActivity implements IDetailMov
     @Click(R.id.back)
     protected void onBackActivity(){
         finish();
+    }
+
+    private void initFullscreenDialog() {
+        mFullScreenDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
+            public void onBackPressed() {
+                if (mExoPlayerFullscreen)
+                    closeFullscreenDialog();
+                super.onBackPressed();
+            }
+        };
+    }
+
+    private void openFullscreenDialog() {
+        ((ViewGroup) simpleExoPlayer.getParent()).removeView(simpleExoPlayer);
+        mFullScreenDialog.addContentView(simpleExoPlayer, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mFullScreenButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_exit_24dp));
+        mExoPlayerFullscreen = true;
+        mFullScreenDialog.show();
+    }
+
+    private void closeFullscreenDialog() {
+        ((ViewGroup) simpleExoPlayer.getParent()).removeView(simpleExoPlayer);
+        ((FrameLayout) findViewById(R.id.main_media_frame)).addView(simpleExoPlayer);
+        mExoPlayerFullscreen = false;
+        mFullScreenDialog.dismiss();
+        mFullScreenButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_fullscreen_24dp));
+    }
+
+    @Click(R.id.exo_fullscreen)
+    protected void onClickFullScreen(){
+        if (!mExoPlayerFullscreen)
+            if (mFullScreenDialog == null){
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                initFullscreenDialog();
+            }else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                openFullscreenDialog();
+            }
+        else
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            closeFullscreenDialog();
     }
 }
