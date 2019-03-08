@@ -8,4 +8,5 @@ public interface IFeedView {
     void showToast(String s);
     void displayError(String e);
     void displayFeed(Feed feed);
+    void initViews();
 }

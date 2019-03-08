@@ -1,6 +1,5 @@
 package id.github.bagaswirapradana.moovie.activities.detail;
 
-import android.content.Context;
 import android.util.Log;
 
 import id.github.bagaswirapradana.moovie.model.DetailMovie;
@@ -20,11 +19,8 @@ public class DetailMoviePresenter implements IDetailPresenter{
     private IDetailMovieView iDetailMovieView;
 
     private static final String TAG = "DetailMoviePresenter";
-
     private static final String API_KEY = "ef037f53cdf93d69c631efff89016d3b";
-
     private static final String LANGUAGE = "id";
-
     private static final String APPEND_TO_RESPONSE = "videos";
 
     DetailMoviePresenter(IDetailMovieView iDetailMovieView) {
@@ -90,7 +86,7 @@ public class DetailMoviePresenter implements IDetailPresenter{
             @Override
             public void onNext(Videos videos) {
                 Log.d(TAG,"OnNext"+videos.getResults());
-                if (iDetailMovieView!=null){
+                if (iDetailMovieView != null){
                     iDetailMovieView.setTrailerMovieData(videos);
                 }
             }
@@ -121,7 +117,7 @@ public class DetailMoviePresenter implements IDetailPresenter{
             @Override
             public void onNext(DetailMovie detailMovie) {
                 Log.d(TAG,"OnNext"+detailMovie.getId());
-                if (iDetailMovieView!=null){
+                if (iDetailMovieView != null){
                     iDetailMovieView.setDetailData(detailMovie);
                 }
             }

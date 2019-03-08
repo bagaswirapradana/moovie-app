@@ -11,22 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <ImageButton
-            android:clickable="true"
-            android:focusable="true"
-            android:id="@+id/back"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginStart="-5dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="@dimen/padding_sl"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_arrow_back_white_24dp" />
+        <include
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          layout="@layout/item_video_player"/>
 
     </FrameLayout>
 

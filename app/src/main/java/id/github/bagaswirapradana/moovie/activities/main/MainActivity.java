@@ -1,4 +1,4 @@
-package id.github.bagaswirapradana.moovie.activities;
+package id.github.bagaswirapradana.moovie.activities.main;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -21,9 +21,8 @@ import id.github.bagaswirapradana.moovie.fragments.feed.FeedFragment_;
 import id.github.bagaswirapradana.moovie.fragments.home.HomeFragment_;
 import id.github.bagaswirapradana.moovie.fragments.more.MoreFragment_;
 
-
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements IMainView{
+public class MainActivity extends AppCompatActivity implements IMainView {
 
     @ViewById(R.id.toolbar)
     protected Toolbar toolbar;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements IMainView{
     private Fragment fragment;
 
     @AfterViews
-    void initialize(){
+    protected void initialize(){
         initToolbar();
         setNavigationBehavior();
         loadFragment(new HomeFragment_());

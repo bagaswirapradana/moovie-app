@@ -10,30 +10,36 @@ import android.widget.Toast;
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import id.github.bagaswirapradana.moovie.R;
-import id.github.bagaswirapradana.moovie.adapter.FeedAdapter;
+import id.github.bagaswirapradana.moovie.adapter.feed.FeedAdapter;
 import id.github.bagaswirapradana.moovie.model.Feed;
 
+@EBean
 @EFragment(R.layout.fragment_feed)
 public class FeedFragment extends Fragment implements IFeedView {
 
-    private String TAG = "FeedFragment";
+    private static final String TAG = "FeedFragment";
 
     private FeedPresenter feedPresenter;
+
+    @Bean
+    protected FeedAdapter feedAdapter;
 
     @ViewById(R.id.feedList)
     protected ShimmerRecyclerView recyclerViewFeed;
 
     @AfterViews
-    void initialize(){
+    protected void initialize(){
         feedPresenter = new FeedPresenter(this);
         feedPresenter.getFeedData();
+        initViews();
         showShimmer();
     }
-
 
     @Override
     public void showShimmer() {
@@ -57,20 +63,22 @@ public class FeedFragment extends Fragment implements IFeedView {
 
     @Override
     public void displayFeed(Feed feed) {
+        if(feed != null) {
+            feedAdapter.bindFeed(feed.getResults());
+            feedAdapter.notifyDataSetChanged();
+        }else {
+            Log.d(TAG,"Feed response null");
+        }
+    }
+
+    @Override
+    public void initViews() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerViewFeed.setLayoutManager(linearLayoutManager);
         recyclerViewFeed.setHasFixedSize(true);
         recyclerViewFeed.setNestedScrollingEnabled(false);
         recyclerViewFeed.setItemAnimator(new DefaultItemAnimator());
-
-        if(feed!=null) {
-            Log.d(TAG,feed.getResults().get(1).getTitle());
-            FeedAdapter feedAdapter = new FeedAdapter(feed.getResults(), getContext());
-            recyclerViewFeed.setAdapter(feedAdapter);
-            feedAdapter.notifyDataSetChanged();
-        }else {
-            Log.d(TAG,"Feed response null");
-        }
+        recyclerViewFeed.setAdapter(feedAdapter);
     }
 
     @Override

@@ -8,4 +8,5 @@ import id.github.bagaswirapradana.moovie.R;
 
 @EFragment(R.layout.fragment_more)
 public class MoreFragment extends Fragment {
+
 }

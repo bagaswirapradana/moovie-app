@@ -1,4 +1,4 @@
-package id.github.bagaswirapradana.moovie.activities;
+package id.github.bagaswirapradana.moovie.activities.main;
 
 import androidx.fragment.app.Fragment;
 

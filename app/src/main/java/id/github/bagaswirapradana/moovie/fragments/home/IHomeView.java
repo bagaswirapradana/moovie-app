@@ -12,4 +12,5 @@ public interface IHomeView {
     void displayError(String s);
     void showShimmer();
     void hideShimmer();
+    void initViews();
 }

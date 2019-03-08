@@ -10,10 +10,6 @@ public class RetrofitClientInstance {
     private static Retrofit retrofit = null;
     private final static String BASE_URL = "https://api.themoviedb.org/3/";
 
-    public RetrofitClientInstance() {
-
-    }
-
     public static Retrofit getRetrofitClientInstance(){
 
         if(retrofit==null){
